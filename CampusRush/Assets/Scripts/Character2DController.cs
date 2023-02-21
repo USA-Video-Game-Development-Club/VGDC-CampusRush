@@ -32,15 +32,16 @@ public class Character2DController : MonoBehaviour
         var movement = Input.GetAxis("Horizontal");
         transform.position += new Vector3(movement, 0, 0) * Time.deltaTime * MovementSpeed;
 
+/*
         if (!Mathf.Approximately(0, movement))
         {
-            /*transform.rotation = */
             if (movement > 0) {
                 sr.sprite = sprites[1];
             } else {
                 sr.sprite = sprites[0];
             }
         }
+*/
         
         if (Input.GetButtonDown("Jump") && Mathf.Abs(rb.velocity.y) < 0.001f)
         {

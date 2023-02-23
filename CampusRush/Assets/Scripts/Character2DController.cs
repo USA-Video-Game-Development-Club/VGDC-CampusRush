@@ -12,7 +12,7 @@ public class Character2DController : MonoBehaviour
     private Rigidbody2D rb;
     //private SpriteRenderer sr;
     //private Sprite[] sprites;
-    private bool doubleJ = true; //ability to double jump
+    private bool doubleJump = true; //ability to double jump
     private Collider2D[] cls;
     private ContactPoint2D[] cons;
 
@@ -45,14 +45,14 @@ public class Character2DController : MonoBehaviour
         }
 */
         
-        if (Input.GetButtonDown("Jump") && (Mathf.Abs(rb.velocity.y) < 0.001f || doubleJ)) //if user inputs jump and they are either on the ground or haven't used their double jump
+        if (Input.GetButtonDown("Jump") && (Mathf.Abs(rb.velocity.y) < 0.001f || doubleJump)) //if user inputs jump and they are either on the ground or haven't used their double jump
         {
             rb.AddForce(new Vector2(0, JumpForce), ForceMode2D.Impulse);
-            if (!cls[0].IsTouching(cons[0].collider)){doubleJ=false;} //if used jump in the air, lose ability to double jump
+            if (!cls[0].IsTouching(cons[0].collider)){doubleJump=false;} //if used jump in the air, lose ability to double jump
         }
 
         cls[0].GetContacts(cons); //get contact points for the main collider
         //Debug.Log(cons[0].collider.name.Substring(0,10));
-        if ((cls[0].IsTouching(cons[0].collider) && cons[0].collider.name.Substring(0,10)=="SolidTerra") && !doubleJ){doubleJ=true;} //if  our collider is touching a different collider, refresh double jump
+        if ((cls[0].IsTouching(cons[0].collider) && cons[0].collider.name.Substring(0,10)=="SolidTerra") && !doubleJump){doubleJump=true;} //if  our collider is touching a different collider, refresh double jump
     }
 }

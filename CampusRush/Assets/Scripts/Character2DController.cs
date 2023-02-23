@@ -52,7 +52,7 @@ public class Character2DController : MonoBehaviour
         }
 
         cls[0].GetContacts(cons); //get contact points for the main collider
-        Debug.Log(cons[0].collider);
-        if ((cls[0].IsTouching(cons[0].collider) && cons[0].collider.name=="SolidTerra") && !doubleJ){doubleJ=true;} //if  our collider is touching a different collider, refresh double jump
+        //Debug.Log(cons[0].collider.name.Substring(0,10));
+        if ((cls[0].IsTouching(cons[0].collider) && cons[0].collider.name.Substring(0,10)=="SolidTerra") && !doubleJ){doubleJ=true;} //if  our collider is touching a different collider, refresh double jump
     }
 }

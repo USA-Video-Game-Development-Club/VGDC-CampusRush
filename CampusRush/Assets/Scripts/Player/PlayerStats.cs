@@ -2,6 +2,7 @@
 //Date: March 14, 2023
 //This is a derived class from CharacterStats,
 //where the game over screen will be implemented.
+//Remember to imput the canvas in the editor when you use this script.
 
 using System.IO.Pipes;
 using UnityEngine;

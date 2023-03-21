@@ -21,7 +21,7 @@ public class PlayerStats : CharacterStats
 
     public override void TakeDamage(int damage)
     {
-        //Switch line 24 with the commented ones if implementing armor
+        //Switch line 27 with the commented ones if implementing armor
         //if(damage - armor.GetValue() > 0)
         //  pips.RemoveHearts(damage - armor.GetValue());
         pips.RemoveHearts(damage);
@@ -37,6 +37,8 @@ public class PlayerStats : CharacterStats
     protected override void Die()
     {
         base.Die();
-        scene.GetComponent<SceneChanger>().GameOver();
+        //This calls the sceneChanger and tells it to load the game over scene.
+        //Make sure there is an instance of the prefab that handles scene changes.
+        SceneChanger.instance.GameOver();
     }
 }

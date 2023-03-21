@@ -209,3 +209,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 5
   pips: {fileID: 0}
+  scene: {fileID: 0}

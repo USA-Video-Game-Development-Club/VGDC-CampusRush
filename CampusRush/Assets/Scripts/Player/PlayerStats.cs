@@ -11,6 +11,8 @@ public class PlayerStats : CharacterStats
 {
     [SerializeField]
     Health pips;
+    [SerializeField]
+    GameObject scene;
 
     private void Start()
     {
@@ -35,7 +37,6 @@ public class PlayerStats : CharacterStats
     protected override void Die()
     {
         base.Die();
-        //Likely the best way to do this is to implement a singleton class that handles all the scene changes
-        //and to implement that here to set up the game over screen.
+        scene.GetComponent<SceneChanger>().GameOver();
     }
 }

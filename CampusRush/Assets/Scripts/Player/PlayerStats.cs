@@ -11,8 +11,6 @@ public class PlayerStats : CharacterStats
 {
     [SerializeField]
     Health pips;
-    [SerializeField]
-    GameObject scene;
 
     private void Start()
     {

@@ -13,6 +13,7 @@ public class PauseButtons : MonoBehaviour
         settings.GetComponent<SettingsMenu>().setRoot();
         settings.SetActive(false);
         this.gameObject.SetActive(false);
+        Time.timeScale = 1.0f;
     }
     public void SettingsButton()
     {

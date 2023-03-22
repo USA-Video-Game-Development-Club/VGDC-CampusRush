@@ -16,6 +16,8 @@ public class PauseMenu : MonoBehaviour
             settings.GetComponent<SettingsMenu>().setRoot();
             settings.SetActive(false);
             menu.SetActive(!menu.activeSelf);
+            if (!menu.activeSelf) Time.timeScale = 1.0f;
+            else Time.timeScale = 0;
         }
     }
 }

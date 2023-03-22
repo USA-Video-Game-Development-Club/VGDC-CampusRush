@@ -39,4 +39,8 @@ public class SceneChanger : MonoBehaviour
         //The last scene should likely be a game winning screen without this object, thus there won't be an overflow.
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
+    public void MainMenu()
+    {
+        SceneManager.LoadScene(1);
+    }
 }

@@ -13,8 +13,6 @@ public class StartMenuScreen : MonoBehaviour
     GameObject root;
     [SerializeField]
     GameObject settingsMenu;
-    [SerializeField]
-    GameObject creditsMenu;
     //These functions are meant to be inserted into the buttons on the MainMenu scene.
     //Don't forget to put this on the canvas in the main menu scene.
     public void Play()
@@ -32,16 +30,10 @@ public class StartMenuScreen : MonoBehaviour
         settingsMenu.SetActive(true);
         root.SetActive(false);
     }
-    public void Credits()
-    {
-        creditsMenu.SetActive(true);
-        root.SetActive(false);
-    }
     //This one is actually inserted to the back button of the root object in the settings object.
     public void Back()
     {
         settingsMenu.SetActive(false);
-        creditsMenu.SetActive(false);
         root.SetActive(true);
     }
 }

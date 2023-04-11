@@ -24,6 +24,7 @@ public class SceneChanger : MonoBehaviour
             return;
         }
         instance = this;
+        Time.timeScale = 1.0f;
     }
     #endregion
 

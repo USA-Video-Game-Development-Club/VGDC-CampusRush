@@ -51,6 +51,7 @@ public class Character2DController : MonoBehaviour
         
         if (Input.GetButtonDown("Jump") && (Mathf.Abs(rb.velocity.y) < 0.001f || doubleJump)) //if user inputs jump and they are either on the ground or haven't used their double jump
         {
+            //rb.velocity.Set(rb.velocity.x,0.001f);
             rb.AddForce(new Vector2(0, JumpForce), ForceMode2D.Impulse);
             if (!isTouchingGround(cls[0])){doubleJump=false;} //if used jump in the air, lose ability to double jump
         }
@@ -59,7 +60,7 @@ public class Character2DController : MonoBehaviour
 
     bool isTouchingGround(Collider2D cl){
         List<ContactPoint2D> cons = new List<ContactPoint2D>{};
-        cl.GetContacts(filter,cons);
+        cl.GetContacts(filter,cons); //to add walljump, disable the filter
         //UnityEngine.Debug.Log(cons.Count);
         foreach(ContactPoint2D con in cons){
             if (con.collider.attachedRigidbody.tag == "Ground"){

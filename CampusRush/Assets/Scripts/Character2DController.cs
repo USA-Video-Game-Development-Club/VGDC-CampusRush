@@ -21,6 +21,7 @@ public class Character2DController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        
         cls = new Collider2D[1]; //make array for colliders
         rb = GetComponent<Rigidbody2D>(); //get rigidbody
         rb.GetAttachedColliders(cls); //get colliders attached to rigidbody

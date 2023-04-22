@@ -4,10 +4,10 @@ using UnityEngine;
 
 public class Generator : MonoBehaviour
 {
-    [SerializeField] GameObject generate;
-    [SerializeField] Vector3 offset = Vector3.zero;
-    [SerializeField] bool die = true;
-    private Vector3 pos;
+    [SerializeField] protected GameObject generate;
+    [SerializeField] protected Vector3 offset = Vector3.zero;
+    [SerializeField] protected bool die = true;
+    protected Vector3 pos;
     // Start is called before the first frame update
     void Start(){
         pos = new Vector3{};

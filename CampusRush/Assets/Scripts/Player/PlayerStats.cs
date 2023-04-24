@@ -11,6 +11,8 @@ public class PlayerStats : CharacterStats
 {
     [SerializeField]
     Health pips;
+    public float invulnTime = 1f;
+    float hitTime = 0f;
 
     private void Start()
     {
@@ -22,8 +24,11 @@ public class PlayerStats : CharacterStats
         //Switch line 27 with the commented ones if implementing armor
         //if(damage - armor.GetValue() > 0)
         //  pips.RemoveHearts(damage - armor.GetValue());
-        pips.RemoveHearts(damage);
-        base.TakeDamage(damage);
+        if(hitTime+invulnTime <= Time.time){
+            hitTime = Time.time;
+            pips.RemoveHearts(damage);
+            base.TakeDamage(damage);
+        }
     }
     public override void HealDamage(int damage)
     {

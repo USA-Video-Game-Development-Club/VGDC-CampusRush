@@ -3507,6 +3507,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 941542763}
     m_Modifications:
+    - target: {fileID: 646295483223456985, guid: 1b1ddbf305e49674a9004969bedcbbe4, type: 3}
+      propertyPath: m_text
+      value: SFX Volume
+      objectReference: {fileID: 0}
     - target: {fileID: 883209288165680184, guid: 1b1ddbf305e49674a9004969bedcbbe4, type: 3}
       propertyPath: m_Name
       value: settings
@@ -3614,6 +3618,10 @@ PrefabInstance:
     - target: {fileID: 7595704837170455158, guid: 1b1ddbf305e49674a9004969bedcbbe4, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8018658058180288109, guid: 1b1ddbf305e49674a9004969bedcbbe4, type: 3}
+      propertyPath: m_text
+      value: Music Volume
       objectReference: {fileID: 0}
     - target: {fileID: 8361025488570514760, guid: 1b1ddbf305e49674a9004969bedcbbe4, type: 3}
       propertyPath: m_AnchorMax.y

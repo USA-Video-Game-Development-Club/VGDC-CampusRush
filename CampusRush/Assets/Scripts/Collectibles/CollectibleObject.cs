@@ -26,7 +26,7 @@ public class CollectibleObject : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.tag == "Player")//Make sure the player has this tag, or the script won't work!
+        if(collision.gameObject.tag == "Player" && !collision.isTrigger)//Make sure the player has this tag, or the script won't work!
         {
             Debug.Log("Found the player!");
             canvas.GetComponent<ScoreTracker>().AddPoints(score);

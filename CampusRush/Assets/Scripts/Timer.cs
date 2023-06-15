@@ -43,4 +43,8 @@ public class Timer : MonoBehaviour
     public void stopTime() {
         stopWatch_On = false;
     }
+
+    public float getTime(){
+        return currentTime;
+    }
 }

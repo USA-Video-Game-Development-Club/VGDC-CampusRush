@@ -6,6 +6,8 @@ public class AcornGen : Generator{
     public Vector2 direction = Vector2.down;
     public float grav = 0f;
     public float speed = 4f;
+    public int num = 1;
+    private int counter = 0;
     // Start is called before the first frame update
     void Start(){
         
@@ -16,14 +18,16 @@ public class AcornGen : Generator{
         
     }
     private void OnTriggerEnter2D(Collider2D other) {
-    if (other.gameObject.tag == "Player"){
-        GameObject clone = Instantiate(generate,transform.localPosition + offset,Quaternion.identity);
-        clone.GetComponent<AcornMove>().grav = grav;
-        clone.GetComponent<AcornMove>().speed = speed;
-        clone.GetComponent<AcornMove>().direction = direction;
-        if (die){
-            Destroy(this.gameObject);
+        if (other.gameObject.tag == "Player"){
+            GameObject clone = Instantiate(generate,transform.localPosition + offset,Quaternion.identity);
+            clone.GetComponent<AcornMove>().grav = grav;
+            clone.GetComponent<AcornMove>().speed = speed;
+            clone.GetComponent<AcornMove>().direction = direction;
+            if (die){
+                Destroy(this.gameObject);
+            }
+            counter++;
         }
+        if (counter == num){Destroy(this.gameObject);}
     }
-}
 }

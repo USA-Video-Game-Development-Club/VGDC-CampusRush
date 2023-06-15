@@ -41,16 +41,16 @@ public class AudioSettings : MonoBehaviour
     public void OnMainVolumeChanged()
     {
         PlayerPrefs.SetFloat("MainVolume", mainSlider.value);
-        mainValue.text = mainSlider.value + "%";
+        mainValue.text = (int) mainSlider.value + "%";
     }
     public void OnMusicVolumeChanged()
     {
         PlayerPrefs.SetFloat("MusicVolume", musicSlider.value);
-        musicValue.text = musicSlider.value + "%";
+        musicValue.text = (int) musicSlider.value + "%";
     }
     public void OnEffectsVolumeChanged()
     {
         PlayerPrefs.SetFloat("EffectsVolume", effectsSlider.value);
-        effectsValue.text = effectsSlider.value + "%";
+        effectsValue.text = (int) effectsSlider.value + "%";
     }
 }

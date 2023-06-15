@@ -15,7 +15,7 @@ public class LevelComplete : MonoBehaviour{
         
     }
     void OnTriggerEnter2D(Collider2D other) {
-        if (other.gameObject.tag == "Player"){
+        if (other.gameObject.tag == "Player" && !other.isTrigger){
             menu.SetActive(!menu.activeSelf);
             if (!menu.activeSelf) Time.timeScale = 1.0f;
             else Time.timeScale = 0;

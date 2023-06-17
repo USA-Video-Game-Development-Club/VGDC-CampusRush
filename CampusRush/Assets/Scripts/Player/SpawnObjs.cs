@@ -16,6 +16,8 @@ public class SpawnObjs : MonoBehaviour{
     }
 
     // Update is called once per frame
+
+
     void LateUpdate(){
         GameObject enemy;
         for (int i=0;i<children.Count;i++){

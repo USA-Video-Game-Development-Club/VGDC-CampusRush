@@ -17,6 +17,7 @@ public class Character2DController : MonoBehaviour
     private bool doubleJump = true; //ability to double jump
     private Collider2D[] cls;
     private ContactFilter2D filter;
+    private List<RaycastHit2D> castHits = new List<RaycastHit2D>();
 
     // Start is called before the first frame update
     void Start()
@@ -36,8 +37,20 @@ public class Character2DController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        var movement = Input.GetAxis("Horizontal"); //get direction of horizontal movement based on input
-        transform.position += new Vector3(movement, 0, 0) * Time.deltaTime * MovementSpeed; //move player by MovementSpeed * dt
+        var movement = Input.GetAxisRaw("Horizontal"); //get direction of horizontal movement based on input in a range of [-1,1]
+        castHits.Add(Physics2D.Raycast(new Vector2(transform.position.x+(movement*0.6f),transform.position.y+0.5f),(movement > 0 ? Vector2.right : Vector2.left),Time.deltaTime * MovementSpeed)); //head
+        castHits.Add(Physics2D.Raycast(new Vector2(transform.position.x+(movement*0.6f),transform.position.y),(movement > 0 ? Vector2.right : Vector2.left),Time.deltaTime * MovementSpeed));
+        castHits.Add(Physics2D.Raycast(new Vector2(transform.position.x+(movement*0.6f),transform.position.y-0.5f),(movement > 0 ? Vector2.right : Vector2.left),Time.deltaTime * MovementSpeed));
+        if(movement != 0 && //if moving
+        ((castHits[0].collider != null && !castHits[0].collider.isTrigger) || 
+        (castHits[1].collider != null && !castHits[1].collider.isTrigger) || 
+        (castHits[2].collider != null && !castHits[2].collider.isTrigger))
+        ){
+            rb.AddForce(new Vector2(movement,0));
+        }else{
+            transform.position += new Vector3(movement, 0, 0) * Time.deltaTime * MovementSpeed; //teleport player by MovementSpeed * dt
+        }
+        castHits.Clear();
 
 /*
         if (!Mathf.Approximately(0, movement))

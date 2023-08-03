@@ -9,7 +9,8 @@ public class DamagePlayer : MonoBehaviour{
     public bool dieOnDamage = true; //despawn once body damaged player
     private Rigidbody2D body;
     private List<Collider2D> colliders = new List<Collider2D>{}; //all colliders attached to rigidbody
-    public GameObject player = null;
+    private GameObject player = null;
+    public int damage = 1;
     // Start is called before the first frame update
     void Start(){
         body = GetComponent<Rigidbody2D>();
@@ -21,20 +22,22 @@ public class DamagePlayer : MonoBehaviour{
 
     // Update is called once per frame
     void Update(){
+        /*
         if (body.IsTouching(player.GetComponent<Collider2D>())){
-            player.GetComponent<PlayerStats>().TakeDamage(1);
+            player.GetComponent<PlayerStats>().TakeDamage(damage);
             if (dieOnDamage){
                 Destroy(this.gameObject);
             }
         }
         //if(dieOnSolid){UnityEngine.Debug.Log(this.gameObject.name + " " + isTouchingSolid());
+        */
     }
 
     void OnCollisionEnter2D(Collision2D other) {
-        UnityEngine.Debug.Log("Collider: " + other.collider);
+        //UnityEngine.Debug.Log("Collider: " + other.collider);
 
         if (other.collider == player.GetComponent<Collider2D>()){ //collide with and damage player
-            player.GetComponent<PlayerStats>().TakeDamage(1);
+            player.GetComponent<PlayerStats>().TakeDamage(damage);
             if (dieOnDamage){
                 Destroy(this.gameObject);
             }
@@ -56,5 +59,20 @@ public class DamagePlayer : MonoBehaviour{
             }
         }
         return false;
+    }
+
+    void OnTriggerEnter2D(Collider2D other) {
+        //UnityEngine.Debug.Log("Collider: " + other.collider);
+
+        if (other == player.GetComponent<Collider2D>()){ //collide with and damage player
+            player.GetComponent<PlayerStats>().TakeDamage(damage);
+            if (dieOnDamage){
+                Destroy(this.gameObject);
+            }
+        }
+
+        if (dieOnSolid && other.attachedRigidbody != null){
+            Destroy(this.gameObject);
+        }
     }
 }

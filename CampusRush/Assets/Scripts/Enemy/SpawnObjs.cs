@@ -23,12 +23,12 @@ public class SpawnObjs : MonoBehaviour{
         for (int i=0;i<children.Count;i++){
             enemy = children[i];
             if(enemy){
-                if (Mathf.Sqrt(
+                if (enemy.activeSelf && Mathf.Sqrt(
                 ((enemy.transform.localPosition.x-player.transform.localPosition.x)*(enemy.transform.localPosition.x-player.transform.localPosition.x))
-                -((enemy.transform.localPosition.y-player.transform.localPosition.y)*(enemy.transform.localPosition.y-player.transform.localPosition.y))
+                -((enemy.transform.localPosition.y-player.transform.localPosition.y)*(enemy.transform.localPosition.y-player.transform.localPosition.y)) //distance function
                 ) >= 10.5){
                     enemy.SetActive(false);
-                }else{
+                }else if(!enemy.activeSelf){
                     enemy.SetActive(true);
                 }
             }else{
@@ -36,9 +36,5 @@ public class SpawnObjs : MonoBehaviour{
                 i--;
             }
         }
-    }
-
-    public void removeChild(GameObject child){
-        children.Remove(child);
     }
 }

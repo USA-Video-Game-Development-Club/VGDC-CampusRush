@@ -16,7 +16,7 @@ public class Character2DController : MonoBehaviour
     //private Sprite[] sprites;
     private bool doubleJump = true; //ability to double jump
     private Collider2D[] cls;
-    private ContactFilter2D filter;
+    //private ContactFilter2D filter;
     private List<RaycastHit2D> castHits = new List<RaycastHit2D>();
 
     // Start is called before the first frame update
@@ -29,8 +29,8 @@ public class Character2DController : MonoBehaviour
         //sr = GetComponent<SpriteRenderer>(); //get sprite renderer
         //sprites = Resources.LoadAll<Sprite>("Sprites"); //store sprites from folder
         rb.gravityScale = grav; //set how fast player should fall
-        filter.SetNormalAngle(89.9f,90.1f);
-        filter.SetDepth(0.0f,0.5f);
+        //filter.SetNormalAngle(89.5f,90.5f);
+        //filter.SetDepth(0.0f,0.5f);
         //UnityEngine.Debug.Log("Is filter working: " + filter.isFiltering);
     }
 
@@ -39,8 +39,8 @@ public class Character2DController : MonoBehaviour
     {
         var movement = Input.GetAxisRaw("Horizontal"); //get direction of horizontal movement based on input in a range of [-1,1]
         castHits.Add(Physics2D.Raycast(new Vector2(transform.position.x+(movement*0.6f),transform.position.y+0.5f),(movement > 0 ? Vector2.right : Vector2.left),Time.deltaTime * MovementSpeed)); //head
-        castHits.Add(Physics2D.Raycast(new Vector2(transform.position.x+(movement*0.6f),transform.position.y),(movement > 0 ? Vector2.right : Vector2.left),Time.deltaTime * MovementSpeed));
-        castHits.Add(Physics2D.Raycast(new Vector2(transform.position.x+(movement*0.6f),transform.position.y-0.5f),(movement > 0 ? Vector2.right : Vector2.left),Time.deltaTime * MovementSpeed));
+        castHits.Add(Physics2D.Raycast(new Vector2(transform.position.x+(movement*0.6f),transform.position.y),(movement > 0 ? Vector2.right : Vector2.left),Time.deltaTime * MovementSpeed)); //body
+        castHits.Add(Physics2D.Raycast(new Vector2(transform.position.x+(movement*0.6f),transform.position.y-0.5f),(movement > 0 ? Vector2.right : Vector2.left),Time.deltaTime * MovementSpeed)); //feet
         if(movement != 0 && //if moving
         ((castHits[0].collider != null && !castHits[0].collider.isTrigger) || 
         (castHits[1].collider != null && !castHits[1].collider.isTrigger) || 
@@ -73,14 +73,17 @@ public class Character2DController : MonoBehaviour
     }
 
     bool isTouchingGround(Collider2D cl){
-        List<ContactPoint2D> cons = new List<ContactPoint2D>{};
-        cl.GetContacts(filter,cons); //to add walljump, disable the filter
-        //UnityEngine.Debug.Log(cons.Count);
-        foreach(ContactPoint2D con in cons){
-            if (con.collider.attachedRigidbody.tag == "Ground"){
+        castHits.Add(Physics2D.Raycast(new Vector2(transform.position.x-0.5f,transform.position.y-1.01f),Vector2.down,0.1f)); //back
+        castHits.Add(Physics2D.Raycast(new Vector2(transform.position.x,transform.position.y-1.01f),Vector2.down,0.1f)); //middle
+        castHits.Add(Physics2D.Raycast(new Vector2(transform.position.x+0.5f,transform.position.y-1.01f),Vector2.down,0.1f)); //front
+        foreach(RaycastHit2D cast in castHits){
+            //Debug.Log(cast.collider.tag);
+            if (cast && cast.collider.tag == "Ground"){
+                castHits.Clear();
                 return true;
             }
         }
+        castHits.Clear();
         return false;
     }
 }

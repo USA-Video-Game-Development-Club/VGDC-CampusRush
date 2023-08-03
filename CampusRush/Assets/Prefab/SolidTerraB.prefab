@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: -5289562242572520414}
   - component: {fileID: -3061092866553527789}
   m_Layer: 0
-  m_Name: SolidTerra
+  m_Name: SolidTerraB
   m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -26,6 +26,7 @@ public class Health : MonoBehaviour
 
     public void RemoveHearts(int damage)
     {
+        damage = damage > healthPips.Count ? healthPips.Count : damage;
         int startCount = healthPips.Count;//I put this before the for loop so that the count doesn't change dynamically
         for(int i = 0; i < damage; i++)
         {

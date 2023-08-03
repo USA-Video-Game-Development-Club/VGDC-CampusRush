@@ -25,4 +25,7 @@ public class GameOverScreen : MonoBehaviour
     {
         SceneManager.LoadScene(1); //Loads the main menu scene. Make sure the main menu scene is placed at 1 in the build settings. DO NOT MOVE IT!
     }
+    public void nextLevel(){
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
+    }
 }

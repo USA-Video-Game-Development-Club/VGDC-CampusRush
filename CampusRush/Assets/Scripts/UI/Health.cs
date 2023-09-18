@@ -10,7 +10,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-//MAKE SURE THIS CLASS IS ATTACHED TO THE CANVAS OBJECT!!!//
+//MAKE SURE THIS CLASS IS ATTACHED TO THE CANVAS OBJECT!!!
 public class Health : MonoBehaviour 
 {
     [SerializeField]//this is so that the prefab can be input through the editor

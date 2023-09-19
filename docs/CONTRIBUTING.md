@@ -5,7 +5,7 @@ Welcome to the Campus Rush contributing guide! We're exciting to have you partic
 
 Cloning the Repository
 ------------
-In order to start modifying the game, first you need to clone the project repository. For this tutorial, we will assume you have Github Desktop installed; if you haven't downloaded it already, you can check out our [`GITHUB.md`](docs/GITHUB.md) document to learn how!
+In order to start modifying the game, first you need to clone the project repository. For this tutorial, we will assume you have Github Desktop installed; if you haven't downloaded it already, you can check out our [`GITHUB.md`](GITHUB.md) document to learn how!
 
 1. Open Github Desktop
 2. If this is your first time cloning a repository, you can press the `Clone a repository from the Internet` button. Otherwise, you can just go to `File > Clone repository` in the top-left corner (they both take you to the same place).
@@ -22,7 +22,7 @@ In order to start modifying the game, first you need to clone the project reposi
 
 Open Project in Unity
 ------------
-Now that you've cloned the repository files, you can load the project into Unity and start making changes. If you haven't already downloaded Unity Hub, you can check out our [`UNITY.md`](docs/UNITY.md) document to learn how!
+Now that you've cloned the repository files, you can load the project into Unity and start making changes. If you haven't already downloaded Unity Hub, you can check out our [`UNITY.md`](UNITY.md) document to learn how!
 
 1. Open Unity Hub
 2. In the top-right corner, click on the button labeled `Open`.

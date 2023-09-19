@@ -12,17 +12,17 @@ public class ScoreTracker : MonoBehaviour
 
     private void Awake()
     {
-        text.text = "Score: " + score;
+        text.text = score.ToString();
     }
 
     public void AddPoints(int points)
     {
         score += points;
-        text.text = "Score: " + score;
+        text.text = score.ToString();
     }
     public void ResetPoints()
     {
         score = 0;
-        text.text = "Score: " + score;
+        text.text = score.ToString();
     }
 }

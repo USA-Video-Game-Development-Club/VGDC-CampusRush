@@ -52,7 +52,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dieOnSolid: 0
   dieOnDamage: 0
-  player: {fileID: 0}
+  damage: 1
 --- !u!61 &-7092205656951338457
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -95,7 +95,7 @@ Rigidbody2D:
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 811c10e17943be14081ef123aeddfa34, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
@@ -112,8 +112,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9949da994c8ed004fb08966ce1e6c9f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveDelay: 2
-  force: 5
+  moveDir: 1
+  speed: 3
 --- !u!82 &6521590704976106420
 AudioSource:
   m_ObjectHideFlags: 0

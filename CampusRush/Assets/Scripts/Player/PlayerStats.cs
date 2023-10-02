@@ -13,20 +13,38 @@ public class PlayerStats : CharacterStats
 {
     [SerializeField]
     Health pips;
-    public float invulnTime = 1f;
-    float hitTime = 0f;
-    public Vector2 hitboxSize;
-    public Vector2 hitboxOffset;
-    private List<Collider2D> touching = new List<Collider2D>();
+    public float invulnTime = 1f; //seconds for player to be invuln after damaged
+    float hitTime = 0f; //time of getting hit
+    private List<Collider2D> touching = new List<Collider2D>(); //list of touching colliders
+    private Collider2D[] colliders = new Collider2D[2]; //list of colliders
+    private int triggerIndex; //index of the first trigger collider (should be the "stomp" hitbox)
+    private ContactFilter2D contFilt; //placeholder (atm) contact filter
 
     private void Start()
     {
         pips.AddHearts(maxHealth);
+
+        colliders = GetComponents<Collider2D>();
+        if (colliders[0].isTrigger){
+            triggerIndex = 0;
+        }else{
+            triggerIndex = 1;
+        }
+
+        contFilt.NoFilter(); //tell contFilt to filter nothing
     }
 
-    void Update(){
-        if (Input.GetKeyDown("q")){
-            StartCoroutine(attack());
+    void LateUpdate(){
+        if (GetComponent<Rigidbody2D>().velocity.y < 0){ //if player is falling
+            colliders[triggerIndex].OverlapCollider(contFilt,touching); //research if ContactFilter can filter by tag
+            for(int i=0;i<touching.Count;i++){ //for everything touching the "stomp" hitbox, check prefab for hitbox placement
+                if (touching[i].tag == "Enemy"){ //if thing is an enemy
+                    Object.Destroy(touching[i].gameObject); //destroy enemy
+                    GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x,0); //set player velocity to 0
+                    GetComponent<Rigidbody2D>().AddForce(new Vector2(0, GetComponent<Character2DController>().JumpForce), ForceMode2D.Impulse); //add force to player equal to a jump
+                    GetComponent<Character2DController>().doubleJump = true; //refresh double jump
+                }
+            }
         }
     }
 
@@ -35,8 +53,8 @@ public class PlayerStats : CharacterStats
         //Switch line 27 with the commented ones if implementing armor
         //if(damage - armor.GetValue() > 0)
         //  pips.RemoveHearts(damage - armor.GetValue());
-        if(hitTime+invulnTime <= Time.time){
-            hitTime = Time.time;
+        if(hitTime+invulnTime <= Time.time){ //if not in the invuln time frame
+            hitTime = Time.time; //hit time is now
             pips.RemoveHearts(damage);
             base.TakeDamage(damage);
         }
@@ -56,6 +74,8 @@ public class PlayerStats : CharacterStats
         SceneChanger.instance.GameOver();
     }
 
+    //Example of using an IEnumerator
+    /* 
     IEnumerator attack(){
         ContactFilter2D temp = new ContactFilter2D(); //required by OverlapCollider()
         BoxCollider2D hitbox = gameObject.AddComponent<BoxCollider2D>();
@@ -71,4 +91,5 @@ public class PlayerStats : CharacterStats
         yield return null; //yield to pass a frame
         Object.Destroy(hitbox);
     }
+    */
 }

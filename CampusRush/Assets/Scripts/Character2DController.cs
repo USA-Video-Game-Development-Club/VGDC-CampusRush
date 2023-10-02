@@ -14,8 +14,8 @@ public class Character2DController : MonoBehaviour
     private Rigidbody2D rb;
     //private SpriteRenderer sr;
     //private Sprite[] sprites;
-    private bool doubleJump = true; //ability to double jump
-    private Collider2D[] cls;
+    public bool doubleJump = true; //ability to double jump, public so PlayerStats can edit it
+    private Collider2D[] cls; //array of colliders
     //private ContactFilter2D filter;
     private List<RaycastHit2D> castHits = new List<RaycastHit2D>();
 
@@ -38,13 +38,13 @@ public class Character2DController : MonoBehaviour
     void Update()
     {
         var movement = Input.GetAxisRaw("Horizontal"); //get direction of horizontal movement based on input in a range of [-1,1]
-        castHits.Add(Physics2D.Raycast(new Vector2(transform.position.x+(movement*0.6f),transform.position.y+0.5f),(movement > 0 ? Vector2.right : Vector2.left),Time.deltaTime * MovementSpeed)); //head
-        castHits.Add(Physics2D.Raycast(new Vector2(transform.position.x+(movement*0.6f),transform.position.y),(movement > 0 ? Vector2.right : Vector2.left),Time.deltaTime * MovementSpeed)); //body
-        castHits.Add(Physics2D.Raycast(new Vector2(transform.position.x+(movement*0.6f),transform.position.y-0.5f),(movement > 0 ? Vector2.right : Vector2.left),Time.deltaTime * MovementSpeed)); //feet
-        if(movement != 0 && //if moving
-        ((castHits[0].collider != null && !castHits[0].collider.isTrigger) || 
-        (castHits[1].collider != null && !castHits[1].collider.isTrigger) || 
-        (castHits[2].collider != null && !castHits[2].collider.isTrigger))
+        castHits.Add(Physics2D.Raycast(new Vector2(transform.position.x+(movement*0.6f),transform.position.y+0.5f), movement > 0 ? Vector2.right : Vector2.left ,Time.deltaTime * MovementSpeed)); //head raycast
+        castHits.Add(Physics2D.Raycast(new Vector2(transform.position.x+(movement*0.6f),transform.position.y), movement > 0 ? Vector2.right : Vector2.left ,Time.deltaTime * MovementSpeed)); //body raycast
+        castHits.Add(Physics2D.Raycast(new Vector2(transform.position.x+(movement*0.6f),transform.position.y-0.5f), movement > 0 ? Vector2.right : Vector2.left ,Time.deltaTime * MovementSpeed)); //feet raycast
+        if(movement != 0 && //if moving and
+        ((castHits[0].collider != null && !castHits[0].collider.isTrigger) || //if castHit 1 didn't hit a trigger or
+        (castHits[1].collider != null && !castHits[1].collider.isTrigger) ||  //if castHit 2 didn't hit a trigger or
+        (castHits[2].collider != null && !castHits[2].collider.isTrigger)) //if castHit 3 didn't hit a trigger
         ){
             rb.AddForce(new Vector2(movement,0));
         }else{

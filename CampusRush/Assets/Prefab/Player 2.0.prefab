@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 5691338363937746649}
   - component: {fileID: 2183714092973295788}
   - component: {fileID: 5015613794452441365}
+  - component: {fileID: 1835936199406053337}
   m_Layer: 0
   m_Name: Player 2.0
   m_TagString: Player
@@ -69,7 +70,7 @@ CapsuleCollider2D:
   m_GameObject: {fileID: 2123418168711704012}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 50c2e993de902a348a262e152a6f8937, type: 2}
+  m_Material: {fileID: 6200000, guid: 811c10e17943be14081ef123aeddfa34, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -97,63 +98,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 2123418168711704012}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 99515cc7123a58845944388f3153b718, type: 3}
+  m_Script: {fileID: 11500000, guid: 10508b905c84b024784d0ab6bb7b7767, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NormalSpeed: 5
-  SprintSpeed: 8
-  AccelerationCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 2
-      outSlope: 2
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  DeaccelerationCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 1
-      inSlope: -2
-      outSlope: -2
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.5
-      value: 0
-      inSlope: -2
-      outSlope: -2
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  AccelerationPoint: 0
-  MaxXSpeed: 20
-  MaxYSpeed: 20
-  JumpForce: 12
+  normalSpeed: 4
+  sprintSpeed: 8
+  sprintAcceleration: 6
+  maxXSpeed: 20
+  maxYSpeed: 20
+  jumpForce: 16
+  doubleJump: 1
+  canDoubleJump: 0
   grav: 3
 --- !u!114 &5691338363937746649
 MonoBehaviour:
@@ -170,8 +125,6 @@ MonoBehaviour:
   maxHealth: 5
   pips: {fileID: 0}
   invulnTime: 1
-  hitboxSize: {x: 0, y: 0}
-  hitboxOffset: {x: 0, y: 0}
 --- !u!82 &2183714092973295788
 AudioSource:
   m_ObjectHideFlags: 0
@@ -282,6 +235,32 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   music: 0
   sfx: 1
+--- !u!61 &1835936199406053337
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2123418168711704012}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -1.125}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 1, y: 0.25}
+  m_EdgeRadius: 0
 --- !u!1 &5147521163286664967
 GameObject:
   m_ObjectHideFlags: 0
@@ -354,9 +333,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 1, b: 0.028726578, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

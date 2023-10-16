@@ -9,26 +9,28 @@ public class PlayerMovement : MonoBehaviour
 {
     public float normalSpeed = 4; //how fast the player can move when walking
     public float sprintSpeed = 8; //how fast the player can move when sprinting
-
-    public AnimationCurve accelerationCurve; //determines how the player acceleration
-    public AnimationCurve deaccelerationCurve; //determines how the player deacceleration
-    public float AccelerationPoint; //the current position of the curve point
+    public float sprintAcceleration = 6; //how fast players accelerate and deaccelerate from printing to walking
+    private float currentSpeed; //the current speed of the player used with acceleration 
 
     public float maxXSpeed = 20; //the max velocity of X
     public float maxYSpeed = 20; //the max velocity of Y
 
-    public float jumpForce = 15;
+    public float jumpForce = 15; //how much is added to a jump 
+    public bool doubleJump = true; //used to know if player
+    public bool canDoubleJump = false; //determines if player can double jump
+
     public float grav = 1f;
 
     //manages user inputs and mechanics around the inputs
     private bool jumpInput; //stores if the jump input is being used
+    private bool jumpInputRelease; //stores if the jump input has been released
     private bool sprintInput; //stores if the move imput is being used
 
 
     private Rigidbody2D rb;
     //private SpriteRenderer sr;
     //private Sprite[] sprites;
-    private bool doubleJump = true; //ability to double jump
+    //private bool doubleJump = false; //ability to double jump
     private Collider2D[] cls;
     //private ContactFilter2D filter;
     private List<RaycastHit2D> castHits = new List<RaycastHit2D>();
@@ -53,17 +55,18 @@ public class PlayerMovement : MonoBehaviour
     {
         //used for jumping
         if (Input.GetButtonDown("Jump")) { jumpInput = true; } //pressing button makes player start jumping when hitting ground
-        else if (Input.GetButtonUp("Jump")) { jumpInput = false; } //letting go of button makes player stop jumping when hitting ground
+
+        if (Input.GetButtonUp("Jump")) { jumpInputRelease = true; jumpInput = false; } //letting go of button makes player stop jumping when hitting ground
 
         //used for sprinting
-        if (Input.GetButton("Sprint")) { sprintInput = true; } //test if sprinting is being used
+        sprintInput = Input.GetButton("Sprint");
     }
 
     // used for physics updates
     // physics done in fixed update due to consistant updates
     void FixedUpdate()
     {
-        var movement = Input.GetAxisRaw("Horizontal"); //get direction of horizontal movement based on input in a range of [-1,1]
+        var movement = Input.GetAxis("Horizontal"); //get direction of horizontal movement based on input in a range of [-1,1]
         
         //controls player movement
         //calls the MovePlayer method to acually move player
@@ -78,12 +81,20 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //controls player jump
-        if (jumpInput && doubleJump) //if user inputs jump and they are either on the ground or haven't used their double jump
+        if (jumpInput && (isTouchingGround(cls[0]) || doubleJump && canDoubleJump)) //if user inputs jump and they are either on the ground or haven't used their double jump
         {
             jumpInput = false;
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
             if (!isTouchingGround(cls[0])) { doubleJump = false; } //if used jump in the air, lose ability to double jump
         }
+
+        //slows players upward momentum when jump is released
+        if (jumpInputRelease && rb.velocity.y > 0)
+        {
+            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y / 2); //slows player upward momentum
+            jumpInputRelease = false;
+        }
+
         if (isTouchingGround(cls[0])) { doubleJump = true; } //adds double jump back to player when hitting ground
     }
 
@@ -102,9 +113,11 @@ public class PlayerMovement : MonoBehaviour
             if (cast && cast.collider.tag == "Ground" || cast && cast.collider.tag == "Enemy")
             {
                 castHits.Clear();
+                jumpInputRelease = false; //resets jumpInputRelease just in case
                 return true; //player is not touching ground
             }
         }
+
         castHits.Clear();
         return false; //player is not touching ground
     }
@@ -117,25 +130,22 @@ public class PlayerMovement : MonoBehaviour
     /// <param name="movementSpeed">how fast the player will move/accelerate</param>
     void MovePlayer(float movementInput, float movementSpeed)
     {
-        float accelerationSpeed = 0;
-
-        if (movementInput == 0) //no input given will start deacceleration
+        if (movementSpeed == sprintSpeed && currentSpeed <= movementSpeed) //changes speed when sprinting
         {
-            AccelerationPoint -= Time.fixedDeltaTime; //sets point on graph/curve lower
-            accelerationSpeed = Vector2.Lerp(Vector2.zero, Vector2.one, deaccelerationCurve.Evaluate(AccelerationPoint)).x; //finds the point on the curve for the current acceleration speed and sets the x value
-        }
-        else if (movementInput != 0) //input given will start acceleration
-        {
-            AccelerationPoint += Time.fixedDeltaTime;//sets point on graph/curve higher
-            accelerationSpeed = Vector2.Lerp(Vector2.zero, Vector2.one, accelerationCurve.Evaluate(AccelerationPoint)).x; //finds the point on the curve for the current acceleration speed and sets the x value
+            currentSpeed += Time.deltaTime * sprintAcceleration; //how fast player changes form walk to sprinting
         }
 
-        rb.velocity = new Vector2((movementInput * accelerationSpeed) * movementSpeed, rb.velocity.y); //adds velocity/moves player
+        if (movementSpeed == normalSpeed && currentSpeed >= movementSpeed) //changes speed when walking
+        {
+            currentSpeed -= Time.deltaTime * sprintAcceleration;  //how fast player changes form sprinting to walking
+        }
+
+        currentSpeed = Mathf.Clamp(currentSpeed, normalSpeed, sprintSpeed); //clamps speed to make sure player wont go to fast
+        rb.velocity = new Vector2(movementInput * currentSpeed, rb.velocity.y); //adds velocity/moves player
 
         Vector2 clampVector = rb.velocity; //stores the updated velocity after being clamped to make sure player dose not move too fast
         clampVector.x = Mathf.Clamp(rb.velocity.x, -maxXSpeed, maxXSpeed); //clamps X velocity
         clampVector.y = Mathf.Clamp(rb.velocity.y, -maxYSpeed, maxYSpeed); //clamps Y velocity
-        AccelerationPoint = Mathf.Clamp01(AccelerationPoint); //clamps acceleration to be between [0,1]
 
         rb.velocity = clampVector; //updates velocity to clamped version
     }

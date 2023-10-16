@@ -19,6 +19,9 @@ public class ScoreTracker : MonoBehaviour
     {
         score += points;
         text.text = score.ToString();
+        //Next line added by William Starling
+        PlayerPrefs.SetInt("Score", score);
+
     }
     public void ResetPoints()
     {

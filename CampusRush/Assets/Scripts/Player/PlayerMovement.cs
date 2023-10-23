@@ -31,16 +31,13 @@ public class PlayerMovement : MonoBehaviour
     //private SpriteRenderer sr;
     //private Sprite[] sprites;
     //private bool doubleJump = false; //ability to double jump
-    private Collider2D[] cls;
     //private ContactFilter2D filter;
-    private List<RaycastHit2D> castHits = new List<RaycastHit2D>();
+    private List<ContactPoint2D> contPoints = new List<ContactPoint2D>();
 
     // Start is called before the first frame update
     void Start()
     {
-        cls = new Collider2D[1]; //make array for colliders
         rb = GetComponent<Rigidbody2D>(); //get rigidbody
-        rb.GetAttachedColliders(cls); //get colliders attached to rigidbody
         //sr = GetComponent<SpriteRenderer>(); //get sprite renderer
         //sprites = Resources.LoadAll<Sprite>("Sprites"); //store sprites from folder
         rb.gravityScale = grav; //set how fast player should fall
@@ -66,6 +63,7 @@ public class PlayerMovement : MonoBehaviour
     // physics done in fixed update due to consistant updates
     void FixedUpdate()
     {
+        //if (Input.GetButtonDown("Jump")) { jumpInput = true; }
         var movement = Input.GetAxis("Horizontal"); //get direction of horizontal movement based on input in a range of [-1,1]
         
         //controls player movement
@@ -81,11 +79,13 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //controls player jump
-        if (jumpInput && (isTouchingGround(cls[0]) || doubleJump && canDoubleJump)) //if user inputs jump and they are either on the ground or haven't used their double jump
+        //Debug.Log("Jump Input: " + jumpInput);
+        //Debug.Log("Is Touching Ground: " + isTouchingGround(rb));
+        if (jumpInput && (isTouchingGround(rb) || doubleJump && canDoubleJump)) //if user inputs jump and they are either on the ground or haven't used their double jump
         {
             jumpInput = false;
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-            if (!isTouchingGround(cls[0])) { doubleJump = false; } //if used jump in the air, lose ability to double jump
+            if (!isTouchingGround(rb)) { doubleJump = false; } //if used jump in the air, lose ability to double jump
         }
 
         //slows players upward momentum when jump is released
@@ -95,31 +95,19 @@ public class PlayerMovement : MonoBehaviour
             jumpInputRelease = false;
         }
 
-        if (isTouchingGround(cls[0])) { doubleJump = true; } //adds double jump back to player when hitting ground
+        if (isTouchingGround(rb)) { doubleJump = true; } //adds double jump back to player when hitting ground
     }
 
 
     //method used to determine if player is touching the ground based on charaters feet
-    bool isTouchingGround(Collider2D cl)
-    {
-        castHits.Add(Physics2D.Raycast(new Vector2(transform.position.x - 0.5f, transform.position.y - 1.01f), Vector2.down, 0.1f)); //back
-        castHits.Add(Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y - 1.01f), Vector2.down, 0.1f)); //middle
-        castHits.Add(Physics2D.Raycast(new Vector2(transform.position.x + 0.5f, transform.position.y - 1.01f), Vector2.down, 0.1f)); //front
-
-        //tests each raycast to see if its hit a collider with ground
-        foreach (RaycastHit2D cast in castHits)
-        {
-            //Debug.Log(cast.collider.tag);
-            if (cast && cast.collider.tag == "Ground" || cast && cast.collider.tag == "Enemy")
-            {
-                castHits.Clear();
-                jumpInputRelease = false; //resets jumpInputRelease just in case
-                return true; //player is not touching ground
+    bool isTouchingGround(Rigidbody2D body){
+        body.GetContacts(contPoints);
+        foreach(ContactPoint2D contPoint in contPoints){
+            if (contPoint.rigidbody.tag == "Ground" || contPoint.rigidbody.tag == "Enemy"){
+                return true;
             }
         }
-
-        castHits.Clear();
-        return false; //player is not touching ground
+        return false;
     }
 
 

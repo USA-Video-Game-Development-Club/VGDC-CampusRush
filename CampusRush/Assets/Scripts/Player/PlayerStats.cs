@@ -22,7 +22,7 @@ public class PlayerStats : CharacterStats
 
     private void Start()
     {
-        pips.AddHearts(maxHealth);
+        //pips.AddHearts(maxHealth);
 
         colliders = GetComponents<Collider2D>();
         if (colliders[0].isTrigger){
@@ -30,7 +30,6 @@ public class PlayerStats : CharacterStats
         }else{
             triggerIndex = 1;
         }
-
         contFilt.NoFilter(); //tell contFilt to filter nothing
     }
 
@@ -41,8 +40,8 @@ public class PlayerStats : CharacterStats
                 if (touching[i].tag == "Enemy"){ //if thing is an enemy
                     Object.Destroy(touching[i].gameObject); //destroy enemy
                     GetComponent<Rigidbody2D>().velocity = new Vector2(GetComponent<Rigidbody2D>().velocity.x,0); //set player velocity to 0
-                    GetComponent<Rigidbody2D>().AddForce(new Vector2(0, GetComponent<Character2DController>().JumpForce), ForceMode2D.Impulse); //add force to player equal to a jump
-                    GetComponent<Character2DController>().doubleJump = true; //refresh double jump
+                    GetComponent<Rigidbody2D>().AddForce(new Vector2(0, GetComponent<PlayerMovement>().jumpForce), ForceMode2D.Impulse); //add force to player equal to a jump
+                    GetComponent<PlayerMovement>().doubleJump = true; //refresh double jump
                 }
             }
         }
@@ -55,7 +54,7 @@ public class PlayerStats : CharacterStats
         //  pips.RemoveHearts(damage - armor.GetValue());
         if(hitTime+invulnTime <= Time.time){ //if not in the invuln time frame
             hitTime = Time.time; //hit time is now
-            pips.RemoveHearts(damage);
+            //pips.RemoveHearts(damage);
             base.TakeDamage(damage);
         }
     }

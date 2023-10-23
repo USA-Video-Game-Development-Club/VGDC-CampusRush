@@ -103,7 +103,7 @@ public class PlayerMovement : MonoBehaviour
     bool isTouchingGround(Rigidbody2D body){
         body.GetContacts(contPoints);
         foreach(ContactPoint2D contPoint in contPoints){
-            if (contPoint.rigidbody.tag == "Ground" || contPoint.rigidbody.tag == "Enemy"){
+            if ((contPoint.rigidbody.tag == "Ground" || contPoint.rigidbody.tag == "Enemy") && (rb.worldCenterOfMass.y - contPoint.point.y) >= 0.9){
                 return true;
             }
         }

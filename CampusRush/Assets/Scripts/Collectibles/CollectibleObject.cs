@@ -33,7 +33,6 @@ public class CollectibleObject : MonoBehaviour
         }
     }
 
-    //used to give an collectable object a floating animation and leave it less static
     private void Update()
     {
         //keeps number between 0 and 1
@@ -58,7 +57,6 @@ public class CollectibleObject : MonoBehaviour
     }
 
     //used to make changes to the player to when the player has been given a powerup
-    //use for future powerups
     private void SendPowerUpData(int id, Collider2D collision)
     {
         switch(id) //the id of the powerup

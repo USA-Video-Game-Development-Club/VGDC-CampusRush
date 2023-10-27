@@ -1181,6 +1181,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1971343364}
     - target: {fileID: 3997007573825817919, guid: a028cf35bc107964fa5d7d99111587de, type: 3}
+      propertyPath: Player
+      value: 
+      objectReference: {fileID: 1870184572}
+    - target: {fileID: 3997007573825817919, guid: a028cf35bc107964fa5d7d99111587de, type: 3}
       propertyPath: hitboxSize.x
       value: 1
       objectReference: {fileID: 0}
@@ -2400,7 +2404,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7891459066684843194, guid: 23afd312df671934386fff5cc6cf864f, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7891459066684843194, guid: 23afd312df671934386fff5cc6cf864f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2649,6 +2653,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 35ef04d0c23091741ac18f4e9b061baf, type: 3}
+--- !u!1 &1870184572 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7274561010685120042, guid: a028cf35bc107964fa5d7d99111587de, type: 3}
+  m_PrefabInstance: {fileID: 1086477642}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1872061346
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2948,7 +2957,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1889806716}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.45, y: 1.21, z: -10}
+  m_LocalPosition: {x: -1.5, y: 1.25, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3029,8 +3038,8 @@ MonoBehaviour:
   m_StreamingVersion: 20170927
   m_Priority: 10
   m_StandbyUpdate: 2
-  m_LookAt: {fileID: 379202915}
-  m_Follow: {fileID: 379202915}
+  m_LookAt: {fileID: 0}
+  m_Follow: {fileID: 2129780908}
   m_Lens:
     FieldOfView: 60
     OrthographicSize: 5
@@ -3057,7 +3066,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1938946108}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.45, y: 1.21, z: -10}
+  m_LocalPosition: {x: -1.5, y: 1.25, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3065,11 +3074,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1971343364 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1279532044362308294, guid: 291543b8ff138734787df9d892e6d7c9, type: 3}
-  m_PrefabInstance: {fileID: 900810624032937299}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1975072148
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3124,6 +3128,10 @@ PrefabInstance:
     - target: {fileID: 2491227549881867644, guid: 00e8c17c056564d4fa31d87901558ab8, type: 3}
       propertyPath: m_Name
       value: Squirrel (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7221733918830767911, guid: 00e8c17c056564d4fa31d87901558ab8, type: 3}
+      propertyPath: moveDir
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 00e8c17c056564d4fa31d87901558ab8, type: 3}

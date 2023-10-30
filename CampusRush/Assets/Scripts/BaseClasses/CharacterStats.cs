@@ -43,8 +43,11 @@ public class CharacterStats : MonoBehaviour
     }
     public virtual void HealDamage(int damage)
     {
-        if((currentHealth + damage) <= maxHealth)
+        if((currentHealth + damage) < maxHealth){
             currentHealth += damage;
+        }else{
+            currentHealth = maxHealth;
+        }
     }
 
     // This function changes based on whatever is using it. For example,

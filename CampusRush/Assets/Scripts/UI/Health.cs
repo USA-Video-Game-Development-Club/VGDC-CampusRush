@@ -6,24 +6,38 @@
 //and you're good to go!
 //This script dynamically changes based on the
 //dimensions of the screen and pip size.
+/*
+Edited on 10/30/2023 by Campbell Hodge to use TextMeshPro
+*/
 
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 //MAKE SURE THIS CLASS IS ATTACHED TO THE CANVAS OBJECT!!!
 public class Health : MonoBehaviour 
 {
     [SerializeField]//this is so that the prefab can be input through the editor
-    GameObject pipPrefab;//this is a reference to the pip prefab
-    float pipSize;//this keeps track of the size of the pips. It takes the size off of the prefab that is inserted.
+    //GameObject pipPrefab;//this is a reference to the pip prefab
+    //float pipSize;//this keeps track of the size of the pips. It takes the size off of the prefab that is inserted.
     //Make sure that the pip prefab is a perfect square. Otherwise there will be bugs.
-    List<Transform> healthPips = new List<Transform>();//This is to keep track of the pips.
+    //List<Transform> healthPips = new List<Transform>();//This is to keep track of the pips.
+    TMPro.TMP_Text uiText;
+    GameObject player;
 
     private void Awake()
     {
-        pipSize = pipPrefab.GetComponent<RectTransform>().rect.width;//This gets the size of the pips. MAKE SURE THE WIDTH AND HEIGHT ARE THE SAME!!
+        uiText = transform.GetChild(transform.childCount-3).GetComponentInChildren<TMPro.TMP_Text>();
+        player = GameObject.FindWithTag("Player");
+        if (player != null){
+            uiText.SetText(player.GetComponent<PlayerStats>().maxHealth.ToString());
+        }else{
+            Debug.Log("Player not found");
+        }
+        Debug.Log(uiText.name);
+        //pipSize = pipPrefab.GetComponent<RectTransform>().rect.width;//This gets the size of the pips. MAKE SURE THE WIDTH AND HEIGHT ARE THE SAME!!
     }
-
+    /*
     public void RemoveHearts(int damage)
     {
         damage = damage > healthPips.Count ? healthPips.Count : damage;
@@ -50,5 +64,10 @@ public class Health : MonoBehaviour
                 transform) // Pip's parent
                 .transform);// Insert transform into the list.
         }
+    }
+    */
+    public void updateHealth(){
+        Debug.Log("Current Health: " + player.GetComponent<PlayerStats>().currentHealth.ToString());
+        uiText.text = player.GetComponent<PlayerStats>().currentHealth.ToString();
     }
 }

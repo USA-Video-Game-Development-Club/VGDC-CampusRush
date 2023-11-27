@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3778644846091537912}
   - component: {fileID: 5391063287154047691}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Pellet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 9104458803199962272}
   - component: {fileID: 6005751669655729960}
   - component: {fileID: -8726994550209878613}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Acorn
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -171,7 +171,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dieOnSolid: 1
   dieOnDamage: 1
-  player: {fileID: 0}
+  damage: 1
 --- !u!114 &-8726994550209878613
 MonoBehaviour:
   m_ObjectHideFlags: 0

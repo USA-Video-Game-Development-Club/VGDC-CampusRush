@@ -56,12 +56,16 @@ PrefabInstance:
       value: AcornGen
       objectReference: {fileID: 0}
     - target: {fileID: 5177725069729675371, guid: 1da80ca4dd87e7b41a860381779503a6, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5177725069729675371, guid: 1da80ca4dd87e7b41a860381779503a6, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5177725069729675371, guid: 1da80ca4dd87e7b41a860381779503a6, type: 3}
       propertyPath: m_TagString
-      value: Enemy
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: -8366273336128488054, guid: 1da80ca4dd87e7b41a860381779503a6, type: 3}
@@ -200,3 +204,4 @@ MonoBehaviour:
   grav: 0
   speed: 4
   num: 1
+  delaySet: 0
